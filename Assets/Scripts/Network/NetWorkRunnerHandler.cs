@@ -47,17 +47,19 @@ public class NetWorkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
             Debug.LogError("[Custom Error] Unable to join Lobby");
         }
     }
-
+    #region CREATE - JOIN SESSION
     public void CreateGame(string sessionName, string sceneName)
     {
         var client = InitializeGame(GameMode.Host, sessionName, SceneUtility.GetBuildIndexByScenePath($"Scenes/{sceneName}"));
     }
     
-    public void JoinGame(SessionInfo info) //Desde esta variable se consigue el nombre de la sesion a cargar
+
+    public void JoinGame(SessionInfo sessioninfo) //Desde esta variable se consigue el nombre de la sesion a cargar
     {
-        var client = InitializeGame(GameMode.Client, info.Name);
+        var client = InitializeGame(GameMode.Client, sessioninfo.Name);
     }
-    
+      
+
     async Task InitializeGame(GameMode gamemode, string sessionGame, SceneRef? sceneToLoad = null)
     {
         var sceneManage = _currentNetworkRunner.GetComponent<NetworkSceneManagerDefault>();
@@ -72,8 +74,19 @@ public class NetWorkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
             SceneManager = sceneManage,
             PlayerCount = 2
         });
-        
+
+        if (result.Ok)
+        {
+            Debug.Log("[Custom Msg] Game Created/Joined");
+        }
+        else
+        {
+            Debug.Log("[Custom Error] Unabled to Create/Join Game");
+        }
+
+
     }
+    #endregion
 
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
     {
