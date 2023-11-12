@@ -24,6 +24,8 @@ public class NetWorkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
     
     public event Action<List<SessionInfo>> EventSessionListUpdate = delegate {};
 
+    
+
     public void JoinLobby()
     {
         if(_currentNetworkRunner) Destroy(_currentNetworkRunner);
