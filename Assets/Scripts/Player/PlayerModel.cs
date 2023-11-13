@@ -123,8 +123,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
 
         if (Object.HasStateAuthority)
         {
-            
-            GameManager.instance.AddPLayer(this);
+            GameManager.instance.AddPlayer(this, Object.HasInputAuthority);
             MatchOn = GameManager.instance.MatchState;
         }
     
@@ -147,6 +146,8 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     private IEnumerator wait()
     {
         yield return new WaitForSeconds(.2f);
+        GameManager.instance.AddPLayer(this);
+        MatchOn = GameManager.instance.MatchState;
 
     }
 

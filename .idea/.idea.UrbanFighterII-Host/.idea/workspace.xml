@@ -6,15 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="11c1890d-cc7f-49ac-b4d2-f41635c84eb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UrbanFighterII-Host/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UrbanFighterII-Host/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Anim/Anim_GetHurt.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Anim/Anim_GetHurt.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Anim/Anim_HighKick.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Anim/Anim_HighKick.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Anim/Anim_Jump.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Anim/Anim_Jump.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Anim/Anim_LowKick.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Anim/Anim_LowKick.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Anim/Anim_Punch.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Anim/Anim_Punch.fbx.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Network/NetWorkRunnerHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Network/NetWorkRunnerHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,6 +110,7 @@
       <workItem from="1699898047294" duration="1974000" />
       <workItem from="1699901683866" duration="1561000" />
       <workItem from="1699904268251" duration="2471000" />
+      <workItem from="1699907302240" duration="696000" />
     </task>
     <servers />
   </component>

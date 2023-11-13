@@ -161,9 +161,53 @@ public class GameManager : NetworkBehaviour
                 FightImage.gameObject.SetActive(true);
                 StartCoroutine(Desapear());
             }
+            
+            
         }
     }
 
+
+    public void AddPlayer(PlayerModel model, bool host)
+    {
+        if (!_players.Contains(model))
+        {
+            _players.Add(model);
+
+            if (host)
+            {
+                _playerOne = model;
+                _players[0].SetPosition(_playerTwoSpawnPoint[0].position);
+
+                _playerOne.lifeBar = sliderP1;
+                _playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
+
+                Verification();
+            }
+            else
+            {
+                _playerTwo = model;
+                _players[0].SetPosition(_playerTwoSpawnPoint[1].position);
+
+                _playerTwo.lifeBar = sliderP2;
+                _playerTwo.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
+            }
+            
+            if (_playerOne != null && _playerTwo != null)
+            {
+                Verification();
+
+                _playerOne.SetPosition(_playerTwoSpawnPoint[0].position);
+                _playerOne.ChangeMatchState(true);
+                _playerTwo.ChangeMatchState(true);
+                _playerTwo.SetPosition(_playerTwoSpawnPoint[1].position);
+
+
+                FightImage.gameObject.SetActive(true);
+                StartCoroutine(Desapear());
+            }
+        }
+    }
+    
     public void RemovePlayer(PlayerModel model)
     {
         if(_players.Contains(model))
