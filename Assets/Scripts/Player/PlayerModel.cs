@@ -113,21 +113,29 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         OnGetHurtnim += view.GetHurt;
         OnBlocking += view.Blocking;
     }
-   
+
 
     public override void Spawned()
     {
-        _life = _maxLlife;  
+        _life = _maxLlife;
         CameraMovement.instance.AddPlayer(transform);
         TargetSetter.Instance.AddPlayer(this);
 
-        if (Object.HasInputAuthority)
+        if (Object.HasStateAuthority)
+        {
+            
+            GameManager.instance.AddPLayer(this);
+            MatchOn = GameManager.instance.MatchState;
+        }
+    
+    
+    if (Object.HasInputAuthority)
         {
             _youIndicator = Instantiate(_youIndicatorPrefab, transform);
             _youIndicator.transform.Rotate(0, -90, 0);
         }
 
-        StartCoroutine(wait());
+        //StartCoroutine(wait());
     }
     public void SetPosition(Vector3 newPos) => RPC_Position(newPos);
     
@@ -140,8 +148,6 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     {
         yield return new WaitForSeconds(.2f);
 
-        GameManager.instance.AddPLayer(this);
-        MatchOn = GameManager.instance.MatchState;
     }
 
     public void ChangeMatchState(bool newState) => MatchOn = newState;

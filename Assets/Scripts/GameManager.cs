@@ -96,49 +96,57 @@ public class GameManager : NetworkBehaviour
         {
             _players.Add(model);
 
-            if (Object.HasStateAuthority)
-            {
-                if (model.HasInputAuthority)
-                {
-                    _playerOne = model;
-                    _players[0].SetPosition(_playerTwoSpawnPoint[0].position);
+            _playerOne = model;
+            _players[0].SetPosition(_playerTwoSpawnPoint[0].position);
 
-                    _playerOne.lifeBar = sliderP1;
-                    _playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
+            _playerOne.lifeBar = sliderP1;
+            _playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
 
-                    Verification();
-                }
-                else
-                {
-                    _playerTwo = model;
-                    _players[0].SetPosition(_playerTwoSpawnPoint[1].position);
+            Verification();
+            
+           //if (Object.HasStateAuthority)
+           //{
+           //    if (model.HasInputAuthority)
+           //    {
+           //        _playerOne = model;
+           //        _players[0].SetPosition(_playerTwoSpawnPoint[0].position);
 
-                    _playerTwo.lifeBar = sliderP2;
-                    _playerTwo.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
+           //        _playerOne.lifeBar = sliderP1;
+           //        _playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
 
-                }
-            }
-            else
-            {
-                if (model.HasStateAuthority)
-                {
-                    _playerTwo = model;
-                    _players[0].SetPosition(_playerTwoSpawnPoint[1].position);
+           //        Verification();
+           //    }
+           //    else
+           //    {
+           //        _playerTwo = model;
+           //        _players[0].SetPosition(_playerTwoSpawnPoint[1].position);
 
-                    _playerTwo.lifeBar = sliderP2;
-                    _playerTwo.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
-                }
-                else
-                {
-                    _playerOne = model;
-                    _players[0].SetPosition(_playerTwoSpawnPoint[0].position);
+           //        _playerTwo.lifeBar = sliderP2;
+           //        _playerTwo.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
 
-                    _playerOne.lifeBar = sliderP1;
-                    _playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
+           //    }
+           //}
+           //else
+           //{
+           //    if (model.HasStateAuthority)
+           //    {
+           //        _playerTwo = model;
+           //        _players[0].SetPosition(_playerTwoSpawnPoint[1].position);
 
-                    Verification();
-                }
-            }
+           //        _playerTwo.lifeBar = sliderP2;
+           //        _playerTwo.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
+           //    }
+           //    else
+           //    {
+           //        _playerOne = model;
+           //        _players[0].SetPosition(_playerTwoSpawnPoint[0].position);
+
+           //        _playerOne.lifeBar = sliderP1;
+           //        _playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
+
+           //        Verification();
+           //    }
+           //}
 
             if (_playerOne != null && _playerTwo != null)
             {
