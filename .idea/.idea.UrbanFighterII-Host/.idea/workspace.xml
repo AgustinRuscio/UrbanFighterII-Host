@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11c1890d-cc7f-49ac-b4d2-f41635c84eb1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Art/Anim/Anim_Fighting_Idle.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Anim/Anim_Fighting_Idle.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UrbanFighterII-Host/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UrbanFighterII-Host/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Anim/Anim_GetHurt.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Anim/Anim_GetHurt.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Anim/Anim_HighKick.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Anim/Anim_HighKick.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Anim/Anim_Jump.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Anim/Anim_Jump.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Anim/Anim_LowKick.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Anim/Anim_LowKick.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Art/Anim/Anim_Punch.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Art/Anim/Anim_Punch.fbx.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Network/NetWorkRunnerHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Network/NetWorkRunnerHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +26,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Photon/Fusion/Scripts/Editor/Fusion.Editor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/AnimEvent.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -54,6 +60,14 @@
   }
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$USER_HOME$/Desktop/New folder\UrbanFighterII.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\Usuario\Desktop\New folder" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.12f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath &quot;E:\Quinto cuatrimestre\1. Desarrollo para redes\UrbanFightII_Fight-Game_Unity - Host\UrbanFighterII-Host&quot; -debugCodeOptimization" />
@@ -101,6 +115,8 @@
       <updated>1699296169366</updated>
       <workItem from="1699296172747" duration="631000" />
       <workItem from="1699898047294" duration="1974000" />
+      <workItem from="1699901683866" duration="1561000" />
+      <workItem from="1699904268251" duration="2471000" />
     </task>
     <servers />
   </component>

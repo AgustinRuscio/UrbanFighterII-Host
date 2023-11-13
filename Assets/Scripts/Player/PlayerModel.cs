@@ -264,31 +264,56 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     public void Punch()
     {
         if (!_canMove || _crouching || !isLanded || _blocking) return;
-        OnPunchAnim();
+        
+        RPC_Punch();
+        //OnPunchAnim();
 
         OnAttackiong(false);
         _midPunchZone.SetActive(true);
         StartCoroutine(Deactivate(_midPunchZone, .7f));
     }
 
+    [Rpc(RpcSources.InputAuthority, RpcTargets.Proxies)]
+    public void RPC_Punch()
+    {
+        OnPunchAnim();
+    }
+    
+    
     public void HighKick()
     {
         if (!_canMove || _crouching || !isLanded || _blocking) return;
-        OnHighKickAnim();
-
+        
+        //OnHighKickAnim();
+        RPC_HighKick();
+        
         OnAttackiong(false);
         _upPunchZone.SetActive(true);
         StartCoroutine(Deactivate(_upPunchZone, 1.5f));
+    }
+    
+    [Rpc(RpcSources.InputAuthority, RpcTargets.Proxies)]
+    public void RPC_HighKick()
+    {
+        OnHighKickAnim();
     }
 
     public void LowKick()
     {
         if (!_canMove || _crouching || !isLanded || _blocking) return;
-        OnLowKickAnim();
-
+        
+        //OnLowKickAnim();
+        RPC_LowKick();
+        
         OnAttackiong(false);
         _downPunchZone.SetActive(true);
         StartCoroutine(Deactivate(_downPunchZone, 2f));
+    }
+    
+    [Rpc(RpcSources.InputAuthority, RpcTargets.Proxies)]
+    public void RPC_LowKick()
+    {
+        OnLowKickAnim();
     }
 
     private void OnAttackiong(bool state) => _canMove = state;

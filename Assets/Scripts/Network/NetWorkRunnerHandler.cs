@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Fusion;
 using System.Threading.Tasks;
@@ -25,7 +26,8 @@ public class NetWorkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
     private void Awake()
     {
         //Viene del menu
-        CreateGame("As", SceneManager.GetActiveScene().name);
+        if(_currentNetworkRunner.ActivePlayers.Count() <=1)
+            CreateGame("As", SceneManager.GetActiveScene().name);
     }
 
 
