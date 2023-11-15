@@ -19,7 +19,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Button _joinLobbyBTN;
     [SerializeField] Button _hostPanelBTN;
     [SerializeField] Button _hostGameBTN;
-
+    [SerializeField] Button _play;
+    
     [Header("InputFields")]
 
     [SerializeField] InputField _sessionNameField;
@@ -34,13 +35,8 @@ public class MainMenu : MonoBehaviour
         _joinLobbyBTN.onClick.AddListener(BTN_JoinLobby);
         _hostPanelBTN.onClick.AddListener(BTN_ShowHostPanel);
         _hostGameBTN.onClick.AddListener(BTN_HostGame);
-
-        _networkHandler.OnJoinLobby += () =>
-        {
-            _statusPanel.SetActive(false);
-            _sessionBrowserPanel.SetActive(true);
-
-        };
+        _play.onClick.AddListener(BTN_Play);
+      
     }
 
 
@@ -67,6 +63,20 @@ public class MainMenu : MonoBehaviour
     {
 
         _networkHandler.CreateGame(_sessionNameField.text, "Level1");
+    }
+
+
+    void BTN_Play()
+    {
+        _networkHandler.OnJoinLobby += () =>
+        {
+            _statusPanel.SetActive(false);
+            _sessionBrowserPanel.SetActive(true);
+
+        };
+
+
+
     }
 
 
