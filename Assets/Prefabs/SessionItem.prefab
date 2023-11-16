@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7044567922505393309}
   - component: {fileID: 7044567922505393378}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: NameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,8 +92,9 @@ GameObject:
   - component: {fileID: 7044567922542681416}
   - component: {fileID: 7044567922542681417}
   - component: {fileID: 7044567922542681422}
+  - component: {fileID: 2151523887313333285}
   m_Layer: 5
-  m_Name: Session item
+  m_Name: SessionItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,6 +187,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2151523887313333285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7044567922542681420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e96f1a1bedbfa42b0c96a312dc2986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sessionNameText: {fileID: 7044567922505393378}
+  _playerCountText: {fileID: 7044567923794708149}
+  _joinButton: {fileID: 7044567923476915354}
 --- !u!1 &7044567923476915352
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +215,7 @@ GameObject:
   - component: {fileID: 7044567923476915349}
   - component: {fileID: 7044567923476915354}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: Join Button'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -400,7 +416,7 @@ GameObject:
   - component: {fileID: 7044567923794708148}
   - component: {fileID: 7044567923794708149}
   m_Layer: 5
-  m_Name: Text (Legacy) (1)
+  m_Name: Player Amount Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
