@@ -3623,7 +3623,6 @@ MonoBehaviour:
   _joinLobbyBTN: {fileID: 1392556424}
   _hostPanelBTN: {fileID: 150157207}
   _hostGameBTN: {fileID: 511189447}
-  _play: {fileID: 0}
   _sessionNameField: {fileID: 1473933976}
   _statusText: {fileID: 2084496406}
 --- !u!114 &1588820259
