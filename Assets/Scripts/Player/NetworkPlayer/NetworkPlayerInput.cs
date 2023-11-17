@@ -15,6 +15,7 @@ public class NetworkPlayerInput : MonoBehaviour
     bool hKich;
     bool lKick;
 
+
     void Start() => _inputData = new();
     
 

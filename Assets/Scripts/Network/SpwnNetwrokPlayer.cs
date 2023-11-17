@@ -19,6 +19,8 @@ public class SpwnNetwrokPlayer : MonoBehaviour, INetworkRunnerCallbacks
 
     NetworkPlayerInput _playerInputs;
 
+
+
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
         if (!NetworkPlayer.Local) return;
@@ -43,6 +45,7 @@ public class SpwnNetwrokPlayer : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (runner.IsServer)
             runner.Spawn(_playerPrefab, _playerOneSpawnPoint.position, _playerOneSpawnPoint.rotation, player);
+        
     }
 
     #region cosa
