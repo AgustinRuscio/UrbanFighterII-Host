@@ -13,14 +13,14 @@ public class SessionBrowserHandler : MonoBehaviour
     [SerializeField] SessionItem _sessionPrefab;
     [SerializeField] VerticalLayoutGroup _verticalLayoutGroup;
 
-    void OnEnabled()
+    void OnEnable()
     {
 
         _networkHandler.EventSessionListUpdate += ReceiveSessionList;
 
     }
 
-    void OnDisabled()
+    void OnDisable()
     {
 
         _networkHandler.EventSessionListUpdate -= ReceiveSessionList;

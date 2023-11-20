@@ -34,7 +34,9 @@ public class NetWorkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
     public void JoinLobby()
     {
         if(_currentNetworkRunner) Destroy(_currentNetworkRunner);
-        
+
+        _currentNetworkRunner = Instantiate(_currentNetworkRunner);
+
         _currentNetworkRunner.AddCallbacks(this);
 
         var clientTask = JoinLobbyTask();
@@ -44,9 +46,10 @@ public class NetWorkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
         var result = await _currentNetworkRunner.JoinSessionLobby(SessionLobby.Custom, "Normal Lobby");
 
         if (result.Ok)
+        {
             OnJoinLobby();
-        else
-            Debug.LogError("[Custom Error] Unable to join Lobby");
+        }
+        else Debug.LogError("[Custom Error] Unable to join Lobby");
     }
 
     public void CreateGame(string sessionName, string sceneName)

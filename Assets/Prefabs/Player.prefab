@@ -1994,11 +1994,11 @@ GameObject:
   - component: {fileID: 6768145649403195995}
   - component: {fileID: 6768145649403195994}
   - component: {fileID: 6768145649403195993}
+  - component: {fileID: 5190739253010777543}
+  - component: {fileID: 8797976965312707374}
   - component: {fileID: 2016530245195304669}
   - component: {fileID: 7365003832013828143}
   - component: {fileID: 6768145649403195992}
-  - component: {fileID: 5190739253010777543}
-  - component: {fileID: 8797976965312707374}
   - component: {fileID: 8133198482811471003}
   m_Layer: 6
   m_Name: Player
@@ -2056,6 +2056,31 @@ CapsuleCollider:
   m_Height: 1.79
   m_Direction: 1
   m_Center: {x: 0, y: -0.1, z: 0}
+--- !u!114 &5190739253010777543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768145649403195999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa162e09c47617a4ebd5530d3514150a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+--- !u!114 &8797976965312707374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768145649403195999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccd7dec5adac5a4468078f911f0bf50e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2016530245195304669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2078,9 +2103,9 @@ MonoBehaviour:
     RawGuidValue: 7017469d6bb54f24595d5b2b9d959ecb
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 5190739253010777543}
   - {fileID: 7365003832013828143}
   - {fileID: 6768145649403195992}
-  - {fileID: 5190739253010777543}
   - {fileID: 8133198482811471003}
   - {fileID: 7451455101367316207}
   - {fileID: 8078733451730541425}
@@ -2141,31 +2166,6 @@ MonoBehaviour:
   _midPunchZone: {fileID: 6768145649568037761}
   _downPunchZone: {fileID: 6768145647763066644}
   _upPunchZone: {fileID: 6768145649398337988}
---- !u!114 &5190739253010777543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6768145649403195999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa162e09c47617a4ebd5530d3514150a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
---- !u!114 &8797976965312707374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6768145649403195999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccd7dec5adac5a4468078f911f0bf50e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8133198482811471003
 MonoBehaviour:
   m_ObjectHideFlags: 0

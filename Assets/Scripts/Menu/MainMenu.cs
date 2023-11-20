@@ -24,6 +24,7 @@ public class MainMenu : MonoBehaviour
     [Header("InputFields")]
 
     [SerializeField] InputField _sessionNameField;
+    [SerializeField] InputField _nicknameField;
 
     [Header("Texts")]
 
@@ -50,6 +51,7 @@ public class MainMenu : MonoBehaviour
     void BTN_JoinLobby()
     {
         _networkHandler.JoinLobby();
+        PlayerPrefs.SetString("nickname", _nicknameField.text);
         _joinLobbyPanel.SetActive(false);
         _statusPanel.SetActive(true);
         _statusText.text = "Joining Lobby... ";
