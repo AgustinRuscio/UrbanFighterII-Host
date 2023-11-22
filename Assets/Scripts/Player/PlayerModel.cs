@@ -123,8 +123,8 @@ public class PlayerModel : NetworkBehaviour, IDamageable
 
         if (Object.HasStateAuthority)
         {
-            GameManager.instance.AddPlayer(this, Object.HasInputAuthority);
-            MatchOn = GameManager.instance.MatchState;
+           // GameManager.instance.AddPlayer(this, Object.HasInputAuthority);
+            //MatchOn = GameManager.instance.MatchState;
         }
     
     
@@ -146,8 +146,8 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     private IEnumerator wait()
     {
         yield return new WaitForSeconds(.2f);
-        GameManager.instance.AddPLayer(this);
-        MatchOn = GameManager.instance.MatchState;
+       // GameManager.instance.AddPLayer(this);
+      //  MatchOn = GameManager.instance.MatchState;
 
     }
 
@@ -161,7 +161,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     {
         TargetSetter.Instance.RemovePlayer(this);
         CameraMovement.instance.RemovePlayer(transform);
-        GameManager.instance.RemovePlayer(this);
+      //  GameManager.instance.RemovePlayer(this);
     }
 
 
@@ -254,6 +254,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     
 
     public void Winning() => RPC_Win();
+
     
 
     public void Blocking(bool isBloking)
@@ -360,7 +361,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     private void Died()
     {
         Winning();
-        GameManager.instance.PlayerDeath();
+       // GameManager.instance.PlayerDeath();
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
