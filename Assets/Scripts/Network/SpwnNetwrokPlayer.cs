@@ -48,6 +48,11 @@ public class SpwnNetwrokPlayer : MonoBehaviour, INetworkRunnerCallbacks
             _playerOneSpawnPoint = GameObject.FindGameObjectWithTag("Spawn1").transform;
             runner.Spawn(_playerPrefab, _playerOneSpawnPoint.position, _playerOneSpawnPoint.rotation, player);
         }
+        else
+        {
+            _playerTwoSpawnPoint = GameObject.FindGameObjectWithTag("Spawn2").transform;
+            runner.Spawn(_playerPrefab, _playerTwoSpawnPoint.position, _playerTwoSpawnPoint.rotation, player);
+        }
         
     }
 
@@ -60,7 +65,10 @@ public class SpwnNetwrokPlayer : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
 
-    public void OnDisconnectedFromServer(NetworkRunner runner) { }
+    public void OnDisconnectedFromServer(NetworkRunner runner) 
+    {
+        runner.Shutdown();  
+    }
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
