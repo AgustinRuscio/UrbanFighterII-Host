@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using Fusion.Sockets;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(NetworkRunner))]
+
 [RequireComponent(typeof(NetworkSceneManagerDefault))]
 public class NetWorkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -26,14 +26,14 @@ public class NetWorkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
     private void Awake()
     {
         //Viene del menu
-        if(_currentNetworkRunner.ActivePlayers.Count() <=1)
-            CreateGame("As", SceneManager.GetActiveScene().name);
+        //if(_currentNetworkRunner.ActivePlayers.Count() <=1)
+        //    CreateGame("As", SceneManager.GetActiveScene().name);
     }
 
 
     public void JoinLobby()
     {
-        if(_currentNetworkRunner) Destroy(_currentNetworkRunner);
+        //if(_currentNetworkRunner) Destroy(_currentNetworkRunner);
 
         _currentNetworkRunner = Instantiate(_currentNetworkRunner);
 
@@ -44,6 +44,7 @@ public class NetWorkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
     async Task JoinLobbyTask()
     {
         var result = await _currentNetworkRunner.JoinSessionLobby(SessionLobby.Custom, "Normal Lobby");
+        Debug.Log(result);
 
         if (result.Ok)
         {

@@ -19,7 +19,7 @@ public class SpwnNetwrokPlayer : MonoBehaviour, INetworkRunnerCallbacks
 
     NetworkPlayerInput _playerInputs;
 
-
+    
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
@@ -44,7 +44,10 @@ public class SpwnNetwrokPlayer : MonoBehaviour, INetworkRunnerCallbacks
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         if (runner.IsServer)
+        { 
+            _playerOneSpawnPoint = GameObject.FindGameObjectWithTag("Spawn1").transform;
             runner.Spawn(_playerPrefab, _playerOneSpawnPoint.position, _playerOneSpawnPoint.rotation, player);
+        }
         
     }
 
