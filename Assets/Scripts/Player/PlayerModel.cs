@@ -171,7 +171,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     {
         TargetSetter.Instance.RemovePlayer(this);
         CameraMovement.instance.RemovePlayer(transform);
-      //  GameManager.instance.RemovePlayer(this);
+        GameManager.instance.RemovePlayer(this);
     }
 
 
@@ -296,7 +296,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         StartCoroutine(Deactivate(_midPunchZone, .7f));
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void RPC_Punch()
     {
         OnPunchAnim();
@@ -315,7 +315,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         StartCoroutine(Deactivate(_upPunchZone, 1.5f));
     }
     
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void RPC_HighKick()
     {
         OnHighKickAnim();
@@ -333,7 +333,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         StartCoroutine(Deactivate(_downPunchZone, 2f));
     }
     
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
     public void RPC_LowKick()
     {
         OnLowKickAnim();
