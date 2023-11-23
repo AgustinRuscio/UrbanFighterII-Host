@@ -14,12 +14,17 @@ public class PunchZone : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Input De ataque");
+
+
         if (!Object || !Object.HasStateAuthority) return;
+
+        Debug.Log("Tire una piña");
 
         var damageable = other.GetComponent<IDamageable>();
 
         if(damageable == null) return;
 
-        damageable.TakeDamage(_damage);
+        damageable.TakeDamage(_damage); 
     }
 }

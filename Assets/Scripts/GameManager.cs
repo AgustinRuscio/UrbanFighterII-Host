@@ -228,10 +228,10 @@ public class GameManager : NetworkBehaviour
 
             Debug.Log("Both players in");
 
-            _playerOne.SetPosition(_spawnPoints[0].position);
+            _playerOne.SetPosition(_spawnPoints[1].position);
             _playerOne.ChangeMatchState(true);  
             _playerTwo.ChangeMatchState(true);
-            _playerTwo.SetPosition(_spawnPoints[1].position);
+            _playerTwo.SetPosition(_spawnPoints[0].position);
 
 
             FightImage.gameObject.SetActive(true);

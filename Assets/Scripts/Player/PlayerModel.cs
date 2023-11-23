@@ -239,14 +239,22 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     public void Jump()
     {
         if (!_canMove || _crouching || !isLanded|| _blocking) return;
-        OnJumpAnim();
+
+        RPC_Jump();
 
         _rigidBody.Rigidbody.AddForce(_rigidBody.Rigidbody.velocity.x, _jumpForce, _rigidBody.Rigidbody.velocity.z);
     }
 
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    public void RPC_Jump()
+    {
+        //Esto no funca
+        OnJumpAnim();
+    }
+
     public void TakeDamage(float dmg) => RPC_GetHit(dmg);
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_GetHit(float dmg)
     {
         if (_blocking) return;
