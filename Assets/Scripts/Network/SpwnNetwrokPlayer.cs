@@ -8,6 +8,7 @@ using UnityEngine;
 using Fusion;
 using Fusion.Sockets;
 using System;
+using System.Linq;
 
 public class SpwnNetwrokPlayer : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -44,14 +45,17 @@ public class SpwnNetwrokPlayer : MonoBehaviour, INetworkRunnerCallbacks
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         if (runner.IsServer)
-        { 
-            _playerOneSpawnPoint = GameObject.FindGameObjectWithTag("Spawn1").transform;
-            runner.Spawn(_playerPrefab, _playerOneSpawnPoint.position, _playerOneSpawnPoint.rotation, player);
-        }
-        else
         {
-            _playerTwoSpawnPoint = GameObject.FindGameObjectWithTag("Spawn2").transform;
-            runner.Spawn(_playerPrefab, _playerTwoSpawnPoint.position, _playerTwoSpawnPoint.rotation, player);
+            if(runner.ActivePlayers.Count() > 1)
+            {
+                _playerOneSpawnPoint = GameObject.FindGameObjectWithTag("Spawn2").transform;
+                runner.Spawn(_playerPrefab, _playerOneSpawnPoint.position, _playerOneSpawnPoint.rotation, player);
+            }
+            else
+            {
+                _playerTwoSpawnPoint = GameObject.FindGameObjectWithTag("Spawn1").transform;
+                runner.Spawn(_playerPrefab, _playerTwoSpawnPoint.position, _playerTwoSpawnPoint.rotation, player);
+            }   
         }
         
     }

@@ -222,16 +222,16 @@ public class GameManager : NetworkBehaviour
 
         
 
-        if (counting >0)
+        if (counting > 0)
         {
             Verification();
 
             Debug.Log("Both players in");
 
-            _playerOne.SetPosition(_spawnPoints[1].position);
+            //_playerOne.SetPosition(_spawnPoints[1].position);
             _playerOne.ChangeMatchState(true);  
             _playerTwo.ChangeMatchState(true);
-            _playerTwo.SetPosition(_spawnPoints[0].position);
+            //_playerTwo.SetPosition(_spawnPoints[0].position);
 
 
             FightImage.gameObject.SetActive(true);
@@ -277,16 +277,26 @@ public class GameManager : NetworkBehaviour
         _timerText.text = _timer.ToString("0");
     }
 
-    public void PlayerDeath()
+    public void PlayerDeath(PlayerModel p)
     {
-        Time.timeScale =0f;
-        _matchOn = false;
+        //Time.timeScale = 0f;
+        //_matchOn = false;
         loseCanvas.SetActive(true);
+
+        if (p == _playerOne)
+        {
+            _playerTwo.Winning();
+        }
+        else
+        {
+            Debug.Log("Gano el player 1");
+            _playerOne.Winning();
+        }
     }
 
     public void PlayerWin()
     {
-        Time.timeScale =0f;
+        Time.timeScale = 0f;
         _matchOn = false;
         winCanvas.SetActive(true);
     }

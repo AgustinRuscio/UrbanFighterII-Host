@@ -12,7 +12,7 @@ using Fusion;
 public class PlayerModel : NetworkBehaviour, IDamageable
 {
     //NetWork
-    
+
     NetworkInputData inputData;
 
     [SerializeField]
@@ -40,12 +40,12 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     [SerializeField]
     public float _maxLlife;
 
-    [Networked(OnChanged = nameof(OnLifeChange))] [HideInInspector]
+    [Networked(OnChanged = nameof(OnLifeChange))][HideInInspector]
     public float _life { get; set; }
 
     [SerializeField]
     public LifeBar _lifeBar;
-    
+
     public event Action<float> OnDamage = delegate { };
 
     [SerializeField]
@@ -70,7 +70,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     public event Action<bool> OnCrouchAnim;
     public event Action<bool> OnBlocking;
     public event Action<float> OnMoveAnim;
-   
+
     #endregion
 
 
@@ -108,7 +108,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         OnMoveAnim += view.Move;
         OnCrouchAnim += view.Crouch;
         OnJumpAnim += view.Jump;
-        OnPunchAnim += view.Punch; 
+        OnPunchAnim += view.Punch;
         OnLowKickAnim += view.LowKick;
         OnHighKickAnim += view.HighKick;
         OnGetHurtnim += view.GetHurt;
@@ -122,18 +122,37 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         CameraMovement.instance.AddPlayer(transform);
         TargetSetter.Instance.AddPlayer(this);
 
-        if (Object.HasInputAuthority)
+        if (Object.HasStateAuthority) //Soy el host?
         {
-            Debug.Log("Enter as Player one");
-            _lifeBar = GameObject.FindGameObjectWithTag("PlayerOneLifeBar").GetComponent<LifeBar>();
-            GameManager.instance.AddPlayer(this, true);
+
+            if (Object.HasInputAuthority) //P1
+            {
+                GameManager.instance.AddPlayer(this, true);
+
+                _lifeBar = GameObject.FindGameObjectWithTag("PlayerOneLifeBar").GetComponent<LifeBar>();
+            }
+            else //P2
+            {
+                GameManager.instance.AddPlayer(this, false);
+                _lifeBar = GameObject.FindGameObjectWithTag("PlayerTwoLifeBar").GetComponent<LifeBar>();
+
+            }
         }
-        else
+        else //No soy host
         {
-            Debug.Log("Enter as Player two");
-            _lifeBar = GameObject.FindGameObjectWithTag("PlayerTwoLifeBar").GetComponent<LifeBar>();
-            GameManager.instance.AddPlayer(this, false);
+            if (Object.HasInputAuthority) //P2
+            {
+                GameManager.instance.AddPlayer(this, false);
+                _lifeBar = GameObject.FindGameObjectWithTag("PlayerTwoLifeBar").GetComponent<LifeBar>();
+            }
+            else //P1
+            {
+
+                GameManager.instance.AddPlayer(this, true);
+                _lifeBar = GameObject.FindGameObjectWithTag("PlayerOneLifeBar").GetComponent<LifeBar>();
+            }
         }
+
 
         MatchOn = GameManager.instance.MatchState;
         _lifeBar.UpdateLifeBar(_life / _maxLlife);
@@ -144,28 +163,17 @@ public class PlayerModel : NetworkBehaviour, IDamageable
             _youIndicator.transform.Rotate(0, -90, 0);
         }
 
-        //StartCoroutine(wait());
     }
+
     public void SetPosition(Vector3 newPos) => RPC_Position(newPos);
-    
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_Position(Vector3 newPos) => transform.position = newPos;
-    
-
-    private IEnumerator wait()
-    {
-        yield return new WaitForSeconds(.2f);
-       // GameManager.instance.AddPLayer(this);
-      //  MatchOn = GameManager.instance.MatchState;
-
-    }
 
     public void ChangeMatchState(bool newState) => MatchOn = newState;
-    
 
     public void SetTarget(Transform newTarget) => target = newTarget;
-    
+
 
     public override void Despawned(NetworkRunner runner, bool hasState)
     {
@@ -177,16 +185,13 @@ public class PlayerModel : NetworkBehaviour, IDamageable
 
     private void Update()
     {
-        if(_youIndicator != null)
-        _youIndicator.transform.position = transform.position + Vector3.up * 1.4f;
+        if (_youIndicator != null)
+            _youIndicator.transform.position = transform.position + Vector3.up * 1.4f;
     }
 
     public override void FixedUpdateNetwork()
     {
         if (!MatchOn) return;
-
-        //OnControllerUpdate();
-        //OnControllerFixedUpdate();
 
         if (GetInput(out inputData))
         {
@@ -197,13 +202,13 @@ public class PlayerModel : NetworkBehaviour, IDamageable
 
             if (inputData._punch)
                 Punch();
-            
+
             if (inputData._highKick)
                 HighKick();
-            
+
             if (inputData._lowKick)
                 LowKick();
-                
+
             Crouch(inputData.isCrouching);
             Blocking(inputData.isBlocking);
         }
@@ -215,11 +220,13 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     private static void OnLifeChange(Changed<PlayerModel> changed)
     {
         var behaviour = changed.Behaviour;
-    
+
         behaviour.OnDamage(behaviour._life / behaviour._maxLlife);
-        
-        if(behaviour._lifeBar != null)
-        behaviour._lifeBar.UpdateLifeBar(behaviour._life / behaviour._maxLlife);
+
+        if (behaviour._lifeBar != null)
+            behaviour._lifeBar.UpdateLifeBar(behaviour._life / behaviour._maxLlife);
+
+        behaviour.OnGetHurtnim();
     }
 
     public void Move(float xMovement)
@@ -238,7 +245,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
 
     public void Jump()
     {
-        if (!_canMove || _crouching || !isLanded|| _blocking) return;
+        if (!_canMove || _crouching || !isLanded || _blocking) return;
 
         RPC_Jump();
 
@@ -247,36 +254,24 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         _rigidBody.Rigidbody.AddForce(_rigidBody.Rigidbody.velocity.x, _jumpForce, _rigidBody.Rigidbody.velocity.z);
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)] //De All a All tampoco funciona, de hecho duplica la ccion
+    [Rpc(RpcSources.All, RpcTargets.All)] //De All a All tampoco funciona, de hecho duplica la ccion
     public void RPC_Jump()
     {
         //El de input auth / proxi (Segun yo son lo mismo) no ven la animacion
         OnJumpAnim();
     }
 
-    public void TakeDamage(float dmg) => RPC_GetHit(dmg);
-
-    [Rpc(RpcSources.All, RpcTargets.All)]
-    public void RPC_GetHit(float dmg)
+    public void TakeDamage(float dmg)
     {
         if (_blocking) return;
 
-        OnGetHurtnim();
         Debug.Log("Auch");
 
-        _life -= dmg;      
-        
+        _life -= dmg;
+
         if (_life <= 0)
             Died();
     }
-
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
-    public void RPC_Win() => GameManager.instance.PlayerWin();
-    
-
-    public void Winning() => RPC_Win();
-
-    
 
     public void Blocking(bool isBloking)
     {
@@ -287,7 +282,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     public void Punch()
     {
         if (!_canMove || _crouching || !isLanded || _blocking) return;
-        
+
         RPC_Punch();
         //OnPunchAnim();
 
@@ -298,26 +293,26 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         StartCoroutine(Deactivate(_midPunchZone, .7f));
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_Punch()
     {
         OnPunchAnim();
     }
-    
-    
+
+
     public void HighKick()
     {
         if (!_canMove || _crouching || !isLanded || _blocking) return;
-        
+
         //OnHighKickAnim();
         RPC_HighKick();
-        
+
         OnAttackiong(false);
         _upPunchZone.SetActive(true);
         StartCoroutine(Deactivate(_upPunchZone, 1.5f));
     }
-    
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_HighKick()
     {
         OnHighKickAnim();
@@ -326,23 +321,23 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     public void LowKick()
     {
         if (!_canMove || _crouching || !isLanded || _blocking) return;
-        
+
         //OnLowKickAnim();
         RPC_LowKick();
-        
+
         OnAttackiong(false);
         _downPunchZone.SetActive(true);
         StartCoroutine(Deactivate(_downPunchZone, 2f));
     }
-    
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_LowKick()
     {
         OnLowKickAnim();
     }
 
     private void OnAttackiong(bool state) => _canMove = state;
-    
+
     public void Crouch(bool isBool)
     {
         if (!isLanded || _blocking) return;
@@ -371,22 +366,29 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         OnAttackiong(true);
     }
 
-    private bool isLanded{ get { return Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), Vector3.down, 1.5f, _groundMask); } }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Vector3 dir = Vector3.down * 1.5f;
-
-        Gizmos.DrawRay(transform.position + new Vector3(0, 0.2f, 0), dir);
-    }
+    private bool isLanded { get { return Physics.Raycast(transform.position + new Vector3(0, 0.2f, 0), Vector3.down, 1.5f, _groundMask); } }
 
     private void Died()
     {
-        Winning();
-       GameManager.instance.PlayerDeath();
+        Losing();
     }
 
     [Rpc(RpcSources.All, RpcTargets.InputAuthority)]
-    public void RPC_Lose() => Died();
+    public void RPC_Lose() => GameManager.instance.PlayerDeath(this);
+
+    public void Losing() => RPC_Lose();
+
+    //-------
+
+    [Rpc(RpcSources.All, RpcTargets.InputAuthority)]
+    public void RPC_Win()
+    {
+        Debug.Log("A ver si funcionas capo");
+        GameManager.instance.PlayerWin();
+    }
+
+    public void Winning()
+    {
+        RPC_Win();
+    }
 }
