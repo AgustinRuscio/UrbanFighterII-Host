@@ -242,13 +242,15 @@ public class PlayerModel : NetworkBehaviour, IDamageable
 
         RPC_Jump();
 
+        OnJumpAnim();
+
         _rigidBody.Rigidbody.AddForce(_rigidBody.Rigidbody.velocity.x, _jumpForce, _rigidBody.Rigidbody.velocity.z);
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)] //De All a All tampoco funciona, de hecho duplica la ccion
     public void RPC_Jump()
     {
-        //Esto no funca
+        //El de input auth / proxi (Segun yo son lo mismo) no ven la animacion
         OnJumpAnim();
     }
 
