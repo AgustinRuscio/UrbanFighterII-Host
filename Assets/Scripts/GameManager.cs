@@ -15,16 +15,16 @@ public class GameManager : NetworkBehaviour
     public static GameManager instance;
 
     [SerializeField]
-    private Transform[] _playerTwoSpawnPoint;
+    private Transform[] _spawnPoints;
 
-    [SerializeField]
+    [HideInInspector]
     public List<PlayerModel> _players;
 
-    public PlayerModel _playerOne;
-    public PlayerModel _playerTwo;
+    [HideInInspector]
+    public PlayerModel _playerOne, _playerTwo;
 
-    [SerializeField]
-    public LifeBar sliderP1, sliderP2;
+   // [SerializeField]
+   // public LifeBar sliderP1, sliderP2;
 
 
     [SerializeField]
@@ -97,10 +97,10 @@ public class GameManager : NetworkBehaviour
             _players.Add(model);
 
             _playerOne = model;
-            _players[0].SetPosition(_playerTwoSpawnPoint[0].position);
-
-            _playerOne.lifeBar = sliderP1;
-            _playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
+            //_players[0].SetPosition(_playerTwoSpawnPoint[0].position);
+            //
+            //_playerOne.lifeBar = sliderP1;
+            //_playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
 
             Verification();
             
@@ -152,10 +152,10 @@ public class GameManager : NetworkBehaviour
             {
                 Verification();
 
-                _playerOne.SetPosition(_playerTwoSpawnPoint[0].position);
+                //_playerOne.SetPosition(_playerTwoSpawnPoint[0].position);
                 _playerOne.ChangeMatchState(true);
                 _playerTwo.ChangeMatchState(true);
-                _playerTwo.SetPosition(_playerTwoSpawnPoint[1].position);
+                //_playerTwo.SetPosition(_playerTwoSpawnPoint[1].position);
 
 
                 FightImage.gameObject.SetActive(true);
@@ -167,6 +167,7 @@ public class GameManager : NetworkBehaviour
     }
 
 
+    int counting = 0;
     public void AddPlayer(PlayerModel model, bool host)
     {
         if (!_players.Contains(model))
@@ -176,35 +177,65 @@ public class GameManager : NetworkBehaviour
             if (host)
             {
                 _playerOne = model;
-                _players[0].SetPosition(_playerTwoSpawnPoint[0].position);
 
-                _playerOne.lifeBar = sliderP1;
-                _playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
-
+                Debug.Log("Player One In");
                 Verification();
+                //_players[0].SetPosition(_spawnPoints[0].position);
+                //
+                //_playerOne.lifeBar = sliderP1;
+                //_playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
+
+                StartCoroutine(LetPlayerAdd());
             }
             else
             {
                 _playerTwo = model;
-                _players[0].SetPosition(_playerTwoSpawnPoint[1].position);
 
-                _playerTwo.lifeBar = sliderP2;
-                _playerTwo.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
+
+                Debug.Log("Player two In");
+
+                counting++;
+                StartCoroutine(LetPlayerAdd());
+               //_players[1].SetPosition(_spawnPoints[1].position);
+                //
+                //_playerTwo.lifeBar = sliderP2;
+                //_playerTwo.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
             }
-            
-            if (_playerOne != null && _playerTwo != null)
-            {
-                Verification();
 
-                _playerOne.SetPosition(_playerTwoSpawnPoint[0].position);
-                _playerOne.ChangeMatchState(true);
-                _playerTwo.ChangeMatchState(true);
-                _playerTwo.SetPosition(_playerTwoSpawnPoint[1].position);
+        }
+    }
+
+    IEnumerator LetPlayerAdd()
+    {
+        yield return new WaitForSeconds (.5f);
+
+        CheckPlayerIn();
+    }
+
+    private void CheckPlayerIn()
+    {
+        Debug.Log("Check!!");
+        if(_playerOne)
+        Debug.Log(_playerOne.gameObject.name + "¨: Player One");
+        if(_playerTwo)
+        Debug.Log(_playerTwo.gameObject .name + "¨: Player One");
+
+        
+
+        if (counting >0)
+        {
+            Verification();
+
+            Debug.Log("Both players in");
+
+            _playerOne.SetPosition(_spawnPoints[0].position);
+            _playerOne.ChangeMatchState(true);  
+            _playerTwo.ChangeMatchState(true);
+            _playerTwo.SetPosition(_spawnPoints[1].position);
 
 
-                FightImage.gameObject.SetActive(true);
-                StartCoroutine(Desapear());
-            }
+            FightImage.gameObject.SetActive(true);
+            StartCoroutine(Desapear());
         }
     }
     

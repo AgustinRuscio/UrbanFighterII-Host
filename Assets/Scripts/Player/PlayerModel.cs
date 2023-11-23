@@ -44,7 +44,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     public float _life { get; set; }
 
     [SerializeField]
-    public LifeBar lifeBar;
+    public LifeBar _lifeBar;
     
     public event Action<float> OnDamage = delegate { };
 
@@ -84,6 +84,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     [SerializeField]
     private GameObject _upPunchZone;
 
+
     [Header("States")]
     private bool _canMove = true;
     private bool _crouching = false;
@@ -121,14 +122,23 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         CameraMovement.instance.AddPlayer(transform);
         TargetSetter.Instance.AddPlayer(this);
 
-        if (Object.HasStateAuthority)
+        if (Object.HasInputAuthority)
         {
-           // GameManager.instance.AddPlayer(this, Object.HasInputAuthority);
-            //MatchOn = GameManager.instance.MatchState;
+            Debug.Log("Enter as Player one");
+            _lifeBar = GameObject.FindGameObjectWithTag("PlayerOneLifeBar").GetComponent<LifeBar>();
+            GameManager.instance.AddPlayer(this, true);
         }
-    
-    
-    if (Object.HasInputAuthority)
+        else
+        {
+            Debug.Log("Enter as Player two");
+            _lifeBar = GameObject.FindGameObjectWithTag("PlayerTwoLifeBar").GetComponent<LifeBar>();
+            GameManager.instance.AddPlayer(this, false);
+        }
+
+        MatchOn = GameManager.instance.MatchState;
+        _lifeBar.UpdateLifeBar(_life / _maxLlife);
+
+        if (Object.HasInputAuthority)
         {
             _youIndicator = Instantiate(_youIndicatorPrefab, transform);
             _youIndicator.transform.Rotate(0, -90, 0);
@@ -181,10 +191,10 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         if (GetInput(out inputData))
         {
             Move(inputData.xMovement);
-            
+
             if (inputData.isJump)
                 Jump();
-            
+
             if (inputData._punch)
                 Punch();
             
@@ -208,8 +218,8 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     
         behaviour.OnDamage(behaviour._life / behaviour._maxLlife);
         
-        if(behaviour.lifeBar != null)
-        behaviour.lifeBar.UpdateLifeBar(behaviour._life / behaviour._maxLlife);
+        if(behaviour._lifeBar != null)
+        behaviour._lifeBar.UpdateLifeBar(behaviour._life / behaviour._maxLlife);
     }
 
     public void Move(float xMovement)
@@ -236,12 +246,13 @@ public class PlayerModel : NetworkBehaviour, IDamageable
 
     public void TakeDamage(float dmg) => RPC_GetHit(dmg);
 
-    [Rpc(RpcSources.Proxies, RpcTargets.StateAuthority)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     public void RPC_GetHit(float dmg)
     {
         if (_blocking) return;
 
         OnGetHurtnim();
+        Debug.Log("Auch");
 
         _life -= dmg;      
         
@@ -249,7 +260,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
             Died();
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.Proxies)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     public void RPC_Win() => GameManager.instance.PlayerWin();
     
 
@@ -270,12 +281,14 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         RPC_Punch();
         //OnPunchAnim();
 
+        Debug.Log("Punch");
+
         OnAttackiong(false);
         _midPunchZone.SetActive(true);
         StartCoroutine(Deactivate(_midPunchZone, .7f));
     }
 
-    [Rpc(RpcSources.InputAuthority, RpcTargets.Proxies)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     public void RPC_Punch()
     {
         OnPunchAnim();
@@ -294,7 +307,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         StartCoroutine(Deactivate(_upPunchZone, 1.5f));
     }
     
-    [Rpc(RpcSources.InputAuthority, RpcTargets.Proxies)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     public void RPC_HighKick()
     {
         OnHighKickAnim();
@@ -312,7 +325,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         StartCoroutine(Deactivate(_downPunchZone, 2f));
     }
     
-    [Rpc(RpcSources.InputAuthority, RpcTargets.Proxies)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     public void RPC_LowKick()
     {
         OnLowKickAnim();
@@ -361,9 +374,9 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     private void Died()
     {
         Winning();
-       // GameManager.instance.PlayerDeath();
+       GameManager.instance.PlayerDeath();
     }
 
-    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    [Rpc(RpcSources.All, RpcTargets.InputAuthority)]
     public void RPC_Lose() => Died();
 }

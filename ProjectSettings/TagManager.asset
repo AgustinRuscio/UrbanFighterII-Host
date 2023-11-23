@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Spawn1
   - Spawn2
+  - PlayerTwoLifeBar
+  - PlayerOneLifeBar
   layers:
   - Default
   - TransparentFX
