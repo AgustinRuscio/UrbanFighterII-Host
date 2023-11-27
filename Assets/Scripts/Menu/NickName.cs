@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class NickName : MonoBehaviour
 {
 
-    const float Y_OFFSET = 2.5f;
+    const float Y_OFFSET = 10f;
 
     Transform _owner;
     Text _myText;
