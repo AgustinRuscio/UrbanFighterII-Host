@@ -9,6 +9,7 @@ using Fusion;
 using Fusion.Sockets;
 using System;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class SpwnNetwrokPlayer : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -71,11 +72,16 @@ public class SpwnNetwrokPlayer : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnDisconnectedFromServer(NetworkRunner runner) 
     {
+        //SceneManager.LoadScene("StartMenu");
         runner.Shutdown();  
+        
     }
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
 
-    public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
+    public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
+    {
+        
+    }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player) { }
 
@@ -86,7 +92,10 @@ public class SpwnNetwrokPlayer : MonoBehaviour, INetworkRunnerCallbacks
     public void OnSceneLoadStart(NetworkRunner runner) { }
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) { }
 
-    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
+    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
+    {
+        //SceneManager.LoadScene("StartMenu");
+    }
     public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
 
     #endregion

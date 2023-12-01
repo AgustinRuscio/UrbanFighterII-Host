@@ -95,6 +95,7 @@ public class NetWorkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
+        //SceneManager.LoadScene("StartMenu");
     }
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
@@ -107,6 +108,7 @@ public class NetWorkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
     {
+        //SceneManager.LoadScene("StartMenu");
     }
 
     public void OnConnectedToServer(NetworkRunner runner)
@@ -115,6 +117,7 @@ public class NetWorkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnDisconnectedFromServer(NetworkRunner runner)
     {
+        //SceneManager.LoadScene("StartMenu");
     }
 
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)

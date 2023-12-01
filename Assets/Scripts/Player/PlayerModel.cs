@@ -7,6 +7,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 using Fusion;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerModel : NetworkBehaviour, IDamageable
@@ -84,12 +85,15 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     [SerializeField]
     private GameObject _upPunchZone;
 
+    private Vector3 initialPos;
+    
 
     [Header("States")]
     private bool _canMove = true;
     private bool _crouching = false;
     private bool _blocking = false;
-
+    private bool _onWarmUp =true;
+    
     private bool MatchOn = true;
 
     void Awake()
@@ -104,7 +108,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         OnControllerFixedUpdate += controller.OnFixedUpdate;
 
         var view = new PlayerView(_animator);
-
+        
         OnMoveAnim += view.Move;
         OnCrouchAnim += view.Crouch;
         OnJumpAnim += view.Jump;
@@ -118,6 +122,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
 
     public override void Spawned()
     {
+        initialPos = transform.position;
         _life = _maxLlife;
         CameraMovement.instance.AddPlayer(transform);
         TargetSetter.Instance.AddPlayer(this);
@@ -170,7 +175,11 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
     public void RPC_Position(Vector3 newPos) => transform.position = newPos;
 
-    public void ChangeMatchState(bool newState) => MatchOn = newState;
+    public void ChangeMatchState(bool newState, bool warmUp)
+    {
+        MatchOn = newState;
+        _onWarmUp = warmUp;
+    }
 
     public void SetTarget(Transform newTarget) => target = newTarget;
 
@@ -180,6 +189,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         TargetSetter.Instance.RemovePlayer(this);
         CameraMovement.instance.RemovePlayer(transform);
         GameManager.instance.RemovePlayer(this);
+        SceneManager.LoadScene("StartMenu");
     }
 
 
@@ -189,6 +199,12 @@ public class PlayerModel : NetworkBehaviour, IDamageable
             _youIndicator.transform.position = transform.position + Vector3.up * 1.4f;
     }
 
+    public void BackToLbby()
+    {
+        Runner.Shutdown();
+        
+    }
+    
     public override void FixedUpdateNetwork()
     {
         if (!MatchOn) return;
@@ -259,8 +275,23 @@ public class PlayerModel : NetworkBehaviour, IDamageable
     {
         //El de input auth / proxi (Segun yo son lo mismo) no ven la animacion
         OnJumpAnim();
+        _onWarmUp = false;
     }
 
+    public void ReFillLife()
+    {
+        _life = _maxLlife;
+        RPC_Reposition();
+        
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_Reposition()
+    {
+        transform.position = initialPos;
+    }
+    
+    
     public void TakeDamage(float dmg)
     {
         if (_blocking) return;
@@ -270,7 +301,12 @@ public class PlayerModel : NetworkBehaviour, IDamageable
         _life -= dmg;
 
         if (_life <= 0)
-            Died();
+        {
+            if(!_onWarmUp)
+                Died();
+            else
+                ReFillLife();
+        }
     }
 
     public void Blocking(bool isBloking)
@@ -380,7 +416,7 @@ public class PlayerModel : NetworkBehaviour, IDamageable
 
     //-------
 
-    [Rpc(RpcSources.All, RpcTargets.InputAuthority)]
+    [Rpc(RpcSources.All, RpcTargets.All)]
     public void RPC_Win()
     {
         Debug.Log("A ver si funcionas capo");

@@ -23,12 +23,8 @@ public class GameManager : NetworkBehaviour
     [HideInInspector]
     public PlayerModel _playerOne, _playerTwo;
 
-   // [SerializeField]
-   // public LifeBar sliderP1, sliderP2;
-
-
     [SerializeField]
-    private GameObject loseCanvas, winCanvas, tieCanvas, FightImage, _waitingPlayerCanvas;
+    private GameObject loseCanvas, winCanvas, tieCanvas, FightImage, _waitingPlayerCanvas, _warmUpCanvas;
 
     public int PlayerCounting { get; private set; }
 
@@ -86,87 +82,10 @@ public class GameManager : NetworkBehaviour
         _matchOn = false;
         tieCanvas.SetActive(true);
 
-        _playerOne.ChangeMatchState(false);
-        _playerTwo.ChangeMatchState(false);
+        _playerOne.ChangeMatchState(false, false);
+        _playerTwo.ChangeMatchState(false, false);
     }
-
-    public void AddPLayer(PlayerModel model)
-    {
-        if (!_players.Contains(model))
-        {
-            _players.Add(model);
-
-            _playerOne = model;
-            //_players[0].SetPosition(_playerTwoSpawnPoint[0].position);
-            //
-            //_playerOne.lifeBar = sliderP1;
-            //_playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
-
-            Verification();
-            
-           //if (Object.HasStateAuthority)
-           //{
-           //    if (model.HasInputAuthority)
-           //    {
-           //        _playerOne = model;
-           //        _players[0].SetPosition(_playerTwoSpawnPoint[0].position);
-
-           //        _playerOne.lifeBar = sliderP1;
-           //        _playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
-
-           //        Verification();
-           //    }
-           //    else
-           //    {
-           //        _playerTwo = model;
-           //        _players[0].SetPosition(_playerTwoSpawnPoint[1].position);
-
-           //        _playerTwo.lifeBar = sliderP2;
-           //        _playerTwo.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
-
-           //    }
-           //}
-           //else
-           //{
-           //    if (model.HasStateAuthority)
-           //    {
-           //        _playerTwo = model;
-           //        _players[0].SetPosition(_playerTwoSpawnPoint[1].position);
-
-           //        _playerTwo.lifeBar = sliderP2;
-           //        _playerTwo.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
-           //    }
-           //    else
-           //    {
-           //        _playerOne = model;
-           //        _players[0].SetPosition(_playerTwoSpawnPoint[0].position);
-
-           //        _playerOne.lifeBar = sliderP1;
-           //        _playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
-
-           //        Verification();
-           //    }
-           //}
-
-            if (_playerOne != null && _playerTwo != null)
-            {
-                Verification();
-
-                //_playerOne.SetPosition(_playerTwoSpawnPoint[0].position);
-                _playerOne.ChangeMatchState(true);
-                _playerTwo.ChangeMatchState(true);
-                //_playerTwo.SetPosition(_playerTwoSpawnPoint[1].position);
-
-
-                FightImage.gameObject.SetActive(true);
-                StartCoroutine(Desapear());
-            }
-            
-            
-        }
-    }
-
-
+    
     int counting = 0;
     public void AddPlayer(PlayerModel model, bool host)
     {
@@ -180,28 +99,18 @@ public class GameManager : NetworkBehaviour
 
                 Debug.Log("Player One In");
                 Verification();
-                //_players[0].SetPosition(_spawnPoints[0].position);
-                //
-                //_playerOne.lifeBar = sliderP1;
-                //_playerOne.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
 
                 StartCoroutine(LetPlayerAdd());
             }
             else
             {
                 _playerTwo = model;
-
-
+                
                 Debug.Log("Player two In");
 
                 counting++;
                 StartCoroutine(LetPlayerAdd());
-               //_players[1].SetPosition(_spawnPoints[1].position);
-                //
-                //_playerTwo.lifeBar = sliderP2;
-                //_playerTwo.lifeBar.UpdateLifeBar(model._life / model._maxLlife);
             }
-
         }
     }
 
@@ -216,28 +125,40 @@ public class GameManager : NetworkBehaviour
     {
         Debug.Log("Check!!");
         if(_playerOne)
-        Debug.Log(_playerOne.gameObject.name + "¨: Player One");
+        Debug.Log(_playerOne.gameObject.name + "Â¨: Player One");
         if(_playerTwo)
-        Debug.Log(_playerTwo.gameObject .name + "¨: Player One");
-
-        
+        Debug.Log(_playerTwo.gameObject .name + "Â¨: Player One");
 
         if (counting > 0)
         {
-            Verification();
-
             Debug.Log("Both players in");
 
-            //_playerOne.SetPosition(_spawnPoints[1].position);
-            _playerOne.ChangeMatchState(true);  
-            _playerTwo.ChangeMatchState(true);
-            //_playerTwo.SetPosition(_spawnPoints[0].position);
+            Verification();
+            
+            _playerOne.ChangeMatchState(true, false);  
+            _playerTwo.ChangeMatchState(true, false);
 
-
-            FightImage.gameObject.SetActive(true);
-            StartCoroutine(Desapear());
+            StartCoroutine(WarmUp());
         }
     }
+
+    IEnumerator WarmUp()
+    {
+        _warmUpCanvas.SetActive(true);
+        
+        yield return new WaitForSeconds(6.5f);
+        
+        _warmUpCanvas.SetActive(false);
+        
+        _timerText.gameObject.SetActive(true);
+        
+        _playerOne.ReFillLife();
+        _playerTwo.ReFillLife();
+        
+        FightImage.gameObject.SetActive(true);
+        StartCoroutine(Desapear());
+    }
+    
     
     public void RemovePlayer(PlayerModel model)
     {
@@ -246,13 +167,13 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(RpcSources.All, RpcTargets.All)]
-    public void RPC_RESET()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
+    public void RPC_RESET() => SceneManager.LoadScene("StartMenu");
+
 
     public void BTN_GoTomenu()
     {
+        _playerOne?.Runner.Shutdown();
+        _playerTwo?.Runner.Shutdown();
         RPC_RESET();
     }
 
@@ -266,7 +187,6 @@ public class GameManager : NetworkBehaviour
         else
         {
             _waitingPlayerCanvas.SetActive(false);
-            _timerText.gameObject.SetActive(true);
         }
     }
     
@@ -279,19 +199,14 @@ public class GameManager : NetworkBehaviour
 
     public void PlayerDeath(PlayerModel p)
     {
-        //Time.timeScale = 0f;
-        //_matchOn = false;
+        Time.timeScale = 0f;
+        _matchOn = false;
         loseCanvas.SetActive(true);
 
         if (p == _playerOne)
-        {
             _playerTwo.Winning();
-        }
         else
-        {
-            Debug.Log("Gano el player 1");
             _playerOne.Winning();
-        }
     }
 
     public void PlayerWin()

@@ -57,14 +57,7 @@ public class CanvasMatchController : NetworkBehaviour
         _matchOn = false;
         tieCanvas.SetActive(true);
 
-        _playerOne.ChangeMatchState(false);
-        _playerTwo.ChangeMatchState(false);
+        _playerOne.ChangeMatchState(false, false);
+        _playerTwo.ChangeMatchState(false, false);
     }
-
-    public void RPC_RESET()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
-
-
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +36,7 @@ public class NickNameHandler : MonoBehaviour
     {
         foreach (var nickname in _allNicknames)
         {
-            nickname.UpdatePositionText();
+            nickname?.UpdatePositionText();
         }
     }
 }

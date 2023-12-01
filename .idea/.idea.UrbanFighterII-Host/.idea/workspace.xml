@@ -6,8 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="11c1890d-cc7f-49ac-b4d2-f41635c84eb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UrbanFighterII-Host/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UrbanFighterII-Host/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Network Handler.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Network Handler.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/SessionItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/SessionItem.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/StartMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/StartMenu.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/LevelCanvas/CanvasMatchController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/LevelCanvas/CanvasMatchController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/NickNameHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/NickNameHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Network/NetWorkRunnerHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Network/NetWorkRunnerHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Network/SpwnNetwrokPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Network/SpwnNetwrokPlayer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +64,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$USER_HOME$/Desktop/New folder\UrbanFighterII.exe" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../Ruscio, Riego - Parcial 2 - Desarrollo para redes/UrbanFighterII.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\Usuario\Desktop\New folder" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -62,7 +72,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.12f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity 2021.3.12f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath &quot;E:\Quinto cuatrimestre\1. Desarrollo para redes\UrbanFightII_Fight-Game_Unity - Host\UrbanFighterII-Host&quot; -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="E:\Quinto cuatrimestre\1. Desarrollo para redes\UrbanFightII_Fight-Game_Unity - Host\UrbanFighterII-Host" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -70,7 +80,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.12f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity 2021.3.12f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath &quot;E:\Quinto cuatrimestre\1. Desarrollo para redes\UrbanFightII_Fight-Game_Unity - Host\UrbanFighterII-Host&quot; -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="E:\Quinto cuatrimestre\1. Desarrollo para redes\UrbanFightII_Fight-Game_Unity - Host\UrbanFighterII-Host" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -111,6 +121,13 @@
       <workItem from="1699901683866" duration="1561000" />
       <workItem from="1699904268251" duration="2471000" />
       <workItem from="1699907302240" duration="696000" />
+      <workItem from="1701380484340" duration="1538000" />
+      <workItem from="1701392666480" duration="1933000" />
+      <workItem from="1701397193018" duration="651000" />
+      <workItem from="1701398150006" duration="327000" />
+      <workItem from="1701402146174" duration="1523000" />
+      <workItem from="1701403729564" duration="296000" />
+      <workItem from="1701449118727" duration="1468000" />
     </task>
     <servers />
   </component>
