@@ -7,7 +7,6 @@
     <list default="true" id="11c1890d-cc7f-49ac-b4d2-f41635c84eb1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UrbanFighterII-Host/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UrbanFighterII-Host/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/CanvasController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/CanvasController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,6 +120,7 @@
       <workItem from="1701477263511" duration="2964000" />
       <workItem from="1701480286446" duration="1542000" />
       <workItem from="1701481895771" duration="637000" />
+      <workItem from="1701482666906" duration="1615000" />
     </task>
     <servers />
   </component>

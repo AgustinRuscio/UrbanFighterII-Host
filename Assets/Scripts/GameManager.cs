@@ -181,12 +181,8 @@ public class GameManager : NetworkBehaviour
     }
 
 
-    public void BTN_GoTomenu()
-    {
-        //_playerOne?.Runner.Shutdown();
-        //_playerTwo?.Runner.Shutdown();
-        RPC_RESET();
-    }
+    public void BTN_GoTomenu() => RPC_RESET();
+    
 
     public void Verification()
     {
@@ -217,13 +213,25 @@ public class GameManager : NetworkBehaviour
         if (p == _playerOne)
             _playerTwo.Winning();
         else
-            _playerOne.Winning();
+        {
+            PlayerWin();
+            //_playerOne.Winning();
+        }
     }
 
-    public void PlayerWin()
+    [Rpc(RpcSources.All, RpcTargets.All)]
+    public void RPC_PlayerWin()
     {
         Time.timeScale = 0f;
         _matchOn = false;
         winCanvas.SetActive(true);
+        
+        Debug.Log("Despues dle RPC");
+    }
+    
+    public void PlayerWin()
+    {
+        Debug.Log("Antes dle RPC");
+        RPC_PlayerWin();
     }
 }
