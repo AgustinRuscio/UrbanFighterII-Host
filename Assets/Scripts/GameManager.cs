@@ -44,6 +44,8 @@ public class GameManager : NetworkBehaviour
             instance = this;
         else
             Destroy(gameObject);
+
+        Time.timeScale = 1;
     }
 
     IEnumerator Desapear()
@@ -167,13 +169,22 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(RpcSources.All, RpcTargets.All)]
-    public void RPC_RESET() => SceneManager.LoadScene("StartMenu");
+    public void RPC_RESET()
+    {
+        Runner.Shutdown();
+        
+        var x = FindObjectOfType<SpwnNetwrokPlayer>();
+        Destroy(x.gameObject);
+        
+        SceneManager.LoadScene("StartMenu");
+        
+    }
 
 
     public void BTN_GoTomenu()
     {
-        _playerOne?.Runner.Shutdown();
-        _playerTwo?.Runner.Shutdown();
+        //_playerOne?.Runner.Shutdown();
+        //_playerTwo?.Runner.Shutdown();
         RPC_RESET();
     }
 
